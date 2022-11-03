@@ -43,6 +43,16 @@ describe('houses routes', () => {
     expect(res.body).toEqual(expected);
   });
 
+  it('/houses/:id should return house detail', async () => {
+    const res = await request(app).get('/houses/1');
+    const gryffindor = {
+      id: '1',
+      name: 'Gryffindor',
+      color: 'Maroon',
+    };
+    expect(res.body).toEqual(gryffindor);
+  });
+
   afterAll(() => {
     pool.end();
   });
