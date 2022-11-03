@@ -4,7 +4,8 @@ const request = require('supertest');
 const app = require('../lib/app');
 
 const { types } = require('../lib/types-data');
-
+const { houses } = require('../lib/houses-data');
+// const {} = require('/models/DndTypes');
 describe('types routes', () => {
   beforeEach(() => {
     return setup(pool);
@@ -27,10 +28,6 @@ describe('types routes', () => {
     };
     expect(res.body).toEqual(barbarian);
   });
-
-  afterAll(() => {
-    pool.end();
-  });
 });
 
 describe('houses routes', () => {
@@ -40,9 +37,13 @@ describe('houses routes', () => {
 
   it('/houses should return list of houses', async () => {
     const res = await request(app).get('/houses');
-    const expected = types.map((house) => {
+    const expected = houses.map((house) => {
       return { id: house.id, name: house.name };
     });
     expect(res.body).toEqual(expected);
+  });
+
+  afterAll(() => {
+    pool.end();
   });
 });
