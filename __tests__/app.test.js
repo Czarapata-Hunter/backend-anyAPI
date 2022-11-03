@@ -32,3 +32,17 @@ describe('types routes', () => {
     pool.end();
   });
 });
+
+describe('houses routes', () => {
+  beforeEach(() => {
+    return setup(pool);
+  });
+
+  it('/houses should return list of houses', async () => {
+    const res = await request(app).get('/houses');
+    const expected = types.map((house) => {
+      return { id: house.id, name: house.name };
+    });
+    expect(res.body).toEqual(expected);
+  });
+});
